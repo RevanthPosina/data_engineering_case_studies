@@ -21,24 +21,27 @@ default_args = {
     tags=["marketing", "analytics", "dbt"],
 )
 def generate_customer_marketing_metrics():
-
     transform_data = BashOperator(
         task_id="dbt_run",
-        bash_command="cd $AIRFLOW_HOME && dbt run --profiles-dir /opt/airflow/tpch_analytics/ --project-dir /opt/airflow/tpch_analytics/",
+        bash_command="cd $AIRFLOW_HOME && uv run dbt run --profiles-dir /home/airflow/tpch_analytics/ --project-dir /home/airflow/tpch_analytics/",
+    )
+
+    quality_check = BashOperator(
+        task_id="dbt_test",
+        bash_command="cd $AIRFLOW_HOME && uv run dbt test --profiles-dir /home/airflow/tpch_analytics/ --project-dir /home/airflow/tpch_analytics/",
     )
 
     generate_docs = BashOperator(
         task_id="dbt_docs_gen",
-        bash_command="cd $AIRFLOW_HOME && dbt docs generate --profiles-dir /opt/airflow/tpch_analytics/ --project-dir /opt/airflow/tpch_analytics/",
+        bash_command="cd $AIRFLOW_HOME && uv run dbt docs generate --profiles-dir /home/airflow/tpch_analytics/ --project-dir /home/airflow/tpch_analytics/",
     )
 
     generate_dashboard = BashOperator(
         task_id="generate_dashboard",
-        bash_command="cd $AIRFLOW_HOME && python3 /opt/airflow/tpch_analytics/dashboard.py",
+        bash_command="cd $AIRFLOW_HOME && uv run python3 /home/airflow/tpch_analytics/dashboard.py",
     )
 
-    transform_data >> generate_docs >> generate_dashboard
+    transform_data >> quality_check >> generate_docs >> generate_dashboard
 
 
 generate_customer_marketing_metrics()
-

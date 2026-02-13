@@ -16,7 +16,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Install Spark 
-ENV SPARK_VERSION=4.1.1
+ENV SPARK_VERSION=4.0.1
 ENV SPARK_HOME=/opt/spark
 RUN wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz && \
     tar -xzf spark-${SPARK_VERSION}-bin-hadoop3.tgz && \
@@ -47,7 +47,7 @@ ENV CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints
 
 RUN uv venv /home/airflow/.venv
 RUN uv pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
-RUN uv pip install pyspark 'pyspark[sql]'
+RUN uv pip install pyspark==4.0.1 'pyspark[sql]==4.0.1'
 RUN uv pip install ruff
 RUN uv pip install jupyterlab
 RUN uv pip install dbt dbt-core dbt-spark[session]

@@ -44,7 +44,7 @@ If you are creating a new notebook, make sure to select the `Python 3 (ipykernel
 When you are done, stop docker containers with the below command:
 
 ```bash
-docker compose down 
+docker compose down  -v --remove-orphans
 ```
 
 ### Airflow & dbt
