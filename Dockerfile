@@ -56,8 +56,6 @@ RUN uv pip install duckdb
 # Copy IPython startup scripts
 COPY ./ipython_scripts/startup/ /root/.ipython/profile_default/startup/
 
-COPY ./generate_data.py /home/airflow/
-COPY ./run_ddl.py /home/airflow/
 # mkdir warehouse and spark-events folder 
 RUN mkdir -p /home/airflow/warehouse
 RUN mkdir -p /home/airflow/spark-events
