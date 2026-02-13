@@ -23,6 +23,7 @@ RUN wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-$
     mv spark-${SPARK_VERSION}-bin-hadoop3 ${SPARK_HOME} && \
     rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
 ENV PATH=$PATH:$SPARK_HOME/bin
+# Link for Iceberg from https://iceberg.apache.org/releases/
 RUN wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-4.0_2.13/1.10.1/iceberg-spark-runtime-4.0_2.13-1.10.1.jar -P ${SPARK_HOME}/jars/
 COPY ./spark_defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 
