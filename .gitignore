@@ -234,3 +234,5 @@ spark-warehouse/
 
 
 book/
+
+/metastore_db/
